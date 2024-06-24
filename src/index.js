@@ -4,70 +4,66 @@ import ReactDom from "react-dom";
 // importing css file
 import "./index.css";
 
-// using objects instead of separate variables
-const mouse1 = {
-  img_: "https://m.media-amazon.com/images/I/41OUcb1wLjL._AC_UY436_FMwebp_QL65_.jpg",
-  name_: "Portronics Toad II Bluetooth Mouse",
-  price_: "₹484",
-};
-const mouse2 = {
-  img_: "https://m.media-amazon.com/images/I/41bEr2Oi3KL._SL1200_.jpg",
-  name_: "Portronics Toad IV Bluetooth Mouse",
-  price_: "₹596",
-};
+// using list
+const mouses = [
+  {
+    img_: "https://m.media-amazon.com/images/I/41OUcb1wLjL._AC_UY436_FMwebp_QL65_.jpg",
+    name_: "Portronics Toad II Bluetooth Mouse",
+    price_: "₹484",
+  },
+  {
+    img_: "https://m.media-amazon.com/images/I/41bEr2Oi3KL._SL1200_.jpg",
+    name_: "Portronics Toad IV Bluetooth Mouse",
+    price_: "₹596",
+  },
+  {
+    img_: "https://m.media-amazon.com/images/I/51Px+3MaXiL._SL1500_.jpg",
+    name_: "Portronics Toad III Wireless Mouse ",
+    price_: "₹578",
+  },
+];
 
 function MouseList() {
   return (
     <div className="mouselist">
-      <Mouse img_={mouse1.img_} name_={mouse1.name_} price_={mouse1.price_} />
-      <Mouse img_={mouse2.img_} name_={mouse2.name_} price_={mouse2.price_} />
-
-      <Mouse_alter1
-        img_={mouse2.img_}
-        name_={mouse2.name_}
-        price_={mouse2.price_}
-      />
-
-      <Mouse_alter2
-        img_={mouse2.img_}
-        name_={mouse2.name_}
-        price_={mouse2.price_}
-      >
-        <p>inside p tag, inside Mouse_alter2, as a child</p>
-      </Mouse_alter2>
+      {/* {mouses} - this wont work as objects cannot be accessed this way*/}
+      {mouses.map((mouse) => {
+        return (
+          <div>
+            {
+              // but these have already been defined in the Mouse function down below
+              /* <img src={img_} alt="" />
+            <h2>{name_}</h2>
+            <h4>{price_}</h4> */
+            }
+            <Mouse _mouse_={mouse}></Mouse>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-let Mouse = (props) => {
-  return (
-    <div className="mouse">
-      <img src={props.img_} alt="" />
-      <h2>{props.name_}</h2>
-      <h4>{props.price_}</h4>
-    </div>
-  );
-};
-let Mouse_alter1 = (props) => {
-  // destructuring props
-  const { img_, name_, price_ } = props;
-  console.log(props.children);
-  return (
-    <div className="mouse">
-      <img src={img_} alt="" />
-      <h2>{name_}</h2>
-      <h4>{price_}</h4>
-    </div>
-  );
-};
+// // example - array of stings can be passed instead of objects
+// const strings = ["string 1 ", "string 2"];
+// const newStrings = strings.map((string_) => {
+//   return <h2>{string_}</h2>
+// });
 
-let Mouse_alter2 = ({ img_, name_, price_, children }) => {
+// function MouseList() {
+//   return (<div className="mouselist">
+//     {strings}
+//     {newStrings}
+//   </div>);
+// }
+
+let Mouse = (props) => {
+  const { img_, name_, price_ } = props._mouse_;
   return (
     <div className="mouse">
       <img src={img_} alt="" />
       <h2>{name_}</h2>
       <h4>{price_}</h4>
-      {children}
     </div>
   );
 };
