@@ -32,7 +32,8 @@ function MouseList() {
         return (
           // key={mouse.id} prop should be directly on the top-level element returned by the map function
           <div key={mouse.id}>
-            <Mouse _mouse_={mouse}></Mouse>
+            {/* <Mouse _mouse_={mouse}></Mouse> */}
+            <Mouse {...mouse}></Mouse> {/* using the spread operator instead */}
           </div>
         );
       })}
@@ -41,7 +42,8 @@ function MouseList() {
 }
 
 let Mouse = (props) => {
-  const { img_, name_, price_ } = props._mouse_;
+  // const { img_, name_, price_ } = props._mouse_;
+  const { img_, name_, price_ } = props;
   return (
     <div className="mouse">
       <img src={img_} alt="" />
