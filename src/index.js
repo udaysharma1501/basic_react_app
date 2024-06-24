@@ -21,11 +21,20 @@ function MouseList() {
     <div className="mouselist">
       <Mouse img_={mouse1.img_} name_={mouse1.name_} price_={mouse1.price_} />
       <Mouse img_={mouse2.img_} name_={mouse2.name_} price_={mouse2.price_} />
-      <Mouse_alter
+
+      <Mouse_alter1
         img_={mouse2.img_}
         name_={mouse2.name_}
         price_={mouse2.price_}
       />
+
+      <Mouse_alter2
+        img_={mouse2.img_}
+        name_={mouse2.name_}
+        price_={mouse2.price_}
+      >
+        <p>inside p tag, inside Mouse_alter2, as a child</p>
+      </Mouse_alter2>
     </div>
   );
 }
@@ -39,14 +48,26 @@ let Mouse = (props) => {
     </div>
   );
 };
-let Mouse_alter = (props) => {
+let Mouse_alter1 = (props) => {
   // destructuring props
   const { img_, name_, price_ } = props;
+  console.log(props.children);
   return (
     <div className="mouse">
       <img src={img_} alt="" />
       <h2>{name_}</h2>
       <h4>{price_}</h4>
+    </div>
+  );
+};
+
+let Mouse_alter2 = ({ img_, name_, price_, children }) => {
+  return (
+    <div className="mouse">
+      <img src={img_} alt="" />
+      <h2>{name_}</h2>
+      <h4>{price_}</h4>
+      {children}
     </div>
   );
 };
