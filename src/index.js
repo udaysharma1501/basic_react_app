@@ -3,7 +3,6 @@ import ReactDom from "react-dom";
 
 import "./index.css";
 
-// Warning: Each child in a list should have a unique "key" prop. - soln - add unique id key for each item in list
 const mouses = [
   {
     id: 1,
@@ -30,10 +29,8 @@ function MouseList() {
     <div className="mouselist">
       {mouses.map((mouse) => {
         return (
-          // key={mouse.id} prop should be directly on the top-level element returned by the map function
           <div key={mouse.id}>
-            {/* <Mouse _mouse_={mouse}></Mouse> */}
-            <Mouse {...mouse}></Mouse> {/* using the spread operator instead */}
+            <Mouse {...mouse}></Mouse>
           </div>
         );
       })}
@@ -41,14 +38,31 @@ function MouseList() {
   );
 }
 
-let Mouse = (props) => {
-  // const { img_, name_, price_ } = props._mouse_;
-  const { img_, name_, price_ } = props;
+let Mouse = ({ img_, name_, price_ }) => {
+  // internal onClick function implementation - events can also be directly handled here only
+  const clickHandler = (event) => {
+    console.log(event);
+    console.log(event.target);
+    alert("button 1 was clicked");
+  };
+
+  const clickHandler_arg = (price) => {
+    console.log(price);
+  };
+
   return (
     <div className="mouse">
       <img src={img_} alt="" />
+      <br />
+      {/* internal onClick function invocation*/}
+      <button onClick={clickHandler}>button 1</button>
+      <br />
+      {/* inline onClick function */}
+      <button onClick={() => console.log(name_)}>button 2</button>
       <h2>{name_}</h2>
       <h4>{price_}</h4>
+      {/* passing an argument to an internally defined onClick function requires an arrow function inside onClick */}
+      <button onClick={() => clickHandler_arg(price_)}>price button</button>
     </div>
   );
 };
