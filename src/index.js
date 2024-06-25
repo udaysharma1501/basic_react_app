@@ -51,7 +51,13 @@ let Mouse = ({ img_, name_, price_ }) => {
   };
 
   return (
-    <div className="mouse">
+    // onMouseOver Event
+    <div
+      className="mouse"
+      onMouseOver={() => {
+        console.log("hovering over " + name_);
+      }}
+    >
       <img src={img_} alt="" />
       <br />
       {/* internal onClick function invocation*/}
